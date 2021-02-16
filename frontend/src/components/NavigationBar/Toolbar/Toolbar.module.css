@@ -1,0 +1,52 @@
+.toolbar {
+  background: #702268;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  height: 8vh;
+  width: 100%;
+}
+
+.toolbarNav {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  padding: 0 1rem;
+}
+
+.toolbarLogo a,
+.toolbarNavLinks a {
+  text-decoration: none;
+  color: white;
+}
+
+.toolbarLogo a {
+  font-size: 1.5rem;
+}
+
+.toolbarNavLinks ul {
+  list-style: none;
+  display: flex;
+}
+
+.toolbarNavLinks li {
+  padding: 0 5rem;
+}
+
+.spacer {
+  flex: 1;
+}
+
+@media (max-width: 769px) {
+  .toolbarNavLinks {
+    display: none;
+  }
+}
+
+@media (min-width: 769px) {
+  .toolbarBurger {
+    display: none;
+  }
+}

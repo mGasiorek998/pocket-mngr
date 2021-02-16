@@ -6,4 +6,5 @@ urlpatterns = [
     path('', index),
     path('dashboard', index),
     path('manager', index),
+    path('logout', index),
 ]

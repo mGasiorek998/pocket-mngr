@@ -1,0 +1,38 @@
+.sideDrawer {
+  height: 100%;
+  background: #702268;
+  box-shadow: -1px 0 7px rgba(0, 0, 0, 0.5);
+
+  position: fixed;
+  top: 0;
+  right: 0;
+
+  width: 70%;
+  max-width: 400px;
+
+  z-index: 200;
+  transform: translateX(120%);
+  transition: transform ease-in-out 0.2s;
+}
+
+.sideDrawer.shown {
+  transform: translateX(0);
+}
+
+.sideDrawer ul {
+  height: 100%;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.sideDrawer li {
+  margin: 1.5rem auto;
+}
+
+.sideDrawer a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.2rem;
+}
