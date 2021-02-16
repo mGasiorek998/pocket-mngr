@@ -1,0 +1,8 @@
+.node
+node_modules/
+__pycache__/
+
+*.pyc
+db.sqlite3
+pocket_mngr/settings/local.py
+migrations/
