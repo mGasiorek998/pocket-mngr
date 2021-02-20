@@ -1,9 +1,14 @@
 import React from 'react'
+import PropTypes from 'prop-types';
 
 import styles from './SideDrawer.module.css'
 
 import { MENU_LINKS } from '../Toolbar/Toolbar';
 import { NavLink } from 'react-router-dom';
+
+/**
+ * Side drawer containg all navigation links for mobile view
+ */
 
 const SideDrawer = ({ isShown }) => {
     return (
@@ -12,9 +17,7 @@ const SideDrawer = ({ isShown }) => {
             <ul>
                 {
                     /**
-                        *@param title - Navigation link title
-                        *@param url - Navligation link url 
-                        *@param idx - index of MENU_LINKS arr element
+                    * Display nav links from MENU_LINKS array
                     */
                     MENU_LINKS.map(({ title, url }, idx) => (
                         <li key={idx}>
@@ -25,6 +28,13 @@ const SideDrawer = ({ isShown }) => {
             </ul>
         </nav>
     )
+}
+
+SideDrawer.PropTypes = {
+    /**
+     * Bool to toggle the side drawer
+     */
+    isShown: PropTypes.bool,
 }
 
 export default SideDrawer;

@@ -1,0 +1,54 @@
+.task {
+  background: #f8f8f8;
+  border-radius: 7px;
+  box-shadow: 1px 1px 6px 0 rgba(0, 0, 0, 0.25);
+  height: 320px;
+  width: 80%;
+  min-width: 320px;
+  margin: auto;
+}
+
+.taskContent {
+  position: relative;
+  width: 80%;
+  height: 100%;
+  margin: auto;
+}
+
+.taskHeader {
+  padding-top: 20px;
+}
+
+.taskDescp {
+  position: relative;
+  top: 15%;
+  text-align: left;
+}
+
+.taskDiff {
+  position: relative;
+  top: 30%;
+}
+
+.taskDiff span {
+  font-weight: 800;
+}
+
+.taskButtons {
+  position: relative;
+  top: 49%;
+  display: flex;
+  justify-content: space-between;
+}
+
+@media (max-width: 1640px) {
+  .taskHeader {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 1540px) {
+  .taskHeader {
+    font-size: 0.8rem;
+  }
+}

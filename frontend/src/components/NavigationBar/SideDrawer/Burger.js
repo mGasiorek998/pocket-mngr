@@ -1,6 +1,11 @@
 import React from 'react'
+import PropTypes from 'prop-types';
 
 import styles from './Burger.module.css';
+
+/**
+ * Burger for Mobile View
+ */
 
 const Burger = ({ click }) => {
     return (
@@ -10,6 +15,13 @@ const Burger = ({ click }) => {
             <div className={styles.burgerLine} />
         </button>
     )
+}
+
+Burger.PropTypes = {
+    /**
+        Function to display side drawer for mobile view
+     */
+    click: PropTypes.func.isRequired,
 }
 
 export default Burger

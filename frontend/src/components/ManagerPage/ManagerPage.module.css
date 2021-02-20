@@ -1,0 +1,22 @@
+.manager {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 50px;
+  width: 95vw;
+  text-align: center;
+  margin: auto;
+  color: #226870;
+}
+
+.managerAddButton {
+  position: fixed;
+  bottom: 5%;
+  right: 2%;
+}
+
+.managerAddButton button {
+  height: 70px;
+  width: 70px;
+  border-radius: 50%;
+  font-size: 1.5rem;
+}

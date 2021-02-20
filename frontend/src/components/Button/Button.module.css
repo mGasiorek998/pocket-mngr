@@ -1,0 +1,17 @@
+.button {
+  border: none;
+  background: #702268;
+  color: white;
+  height: 50px;
+  width: 100px;
+  border-radius: 7px;
+  letter-spacing: 3px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.empty {
+  background: transparent;
+  color: #702268;
+  border: 3px solid #702268;
+}
