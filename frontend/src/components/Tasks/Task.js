@@ -8,8 +8,23 @@ import Button from '../Button/Button';
  * Component for showing task
  */
 
-const Task = ({ title, descp, diff }) => {
+// Enum that contains difficulties ID and their value
+const DIFFICULTIES = {
+    0: 'Easy',
+    1: 'Medium',
+    2: 'Hard',
+    3: 'Very Hard'
+}
 
+/**
+ * converts diff_id to its value 
+ * @param {number} diff_id - difficulty id
+ * @example
+ * mapDifficultyIdToValue(1) -> Medium
+ */
+const mapDifficultyIdToValue = (diff_id) => DIFFICULTIES[diff_id];
+
+const Task = ({ id, title, descp, diff }) => {
 
     // Show only first 50 characters from the task's description
     let shortDesp;
@@ -30,7 +45,7 @@ const Task = ({ title, descp, diff }) => {
                     <p>{shortDesp}</p>
                 </div>
                 <div className={styles.taskDiff}>
-                    <p>Difficulty: <span>{diff}</span></p>
+                    <p>Difficulty: <span>{mapDifficultyIdToValue(diff)}</span></p>
                 </div>
                 <div className={styles.taskButtons}>
                     <Button name='edit' isEmpty />
@@ -43,6 +58,10 @@ const Task = ({ title, descp, diff }) => {
 
 Task.PropTypes = {
     /**
+     * Task's id
+     */
+    id: PropTypes.number.isRequired,
+    /**
      * Task's title
      */
     title: PropTypes.string.isRequired,
@@ -53,9 +72,9 @@ Task.PropTypes = {
     descp: PropTypes.string.isRequired,
 
     /**
-     * Task's difficulty (Easy, Medium, Hard, Very Hard)
+     * Task's difficulty (0 -> Easy, 1 -> Medium, 2 -> Hard, 3 -> Very Hard)
      */
-    diff: PropTypes.string.isRequired,
+    diff: PropTypes.number.isRequired,
 }
 
 export default Task

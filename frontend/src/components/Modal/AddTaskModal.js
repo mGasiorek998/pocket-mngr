@@ -1,9 +1,12 @@
 import React from 'react'
 import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+
 import styles from './AddTaskModal.module.css';
 
 import Modal from '../Modal/Modal';
 import Button from '../Button/Button';
+import { addTask } from '../../redux/actions/tasks';
 
 /**
  * Modal with form for adding a task
@@ -13,13 +16,13 @@ const AddTaskModal = () => {
 
     // useForm for handling user's input:
     const { register, handleSubmit } = useForm();
-
+    const dispatch = useDispatch();
     /**
      * Submit added task to server and display it to the UI as "NEW"
      * @param {Object} task - Task created form user input
      */
     const submitTask = (task) => {
-        console.log(task);
+        dispatch(addTask(task));
     }
 
     return (
@@ -33,12 +36,12 @@ const AddTaskModal = () => {
                     />
                     <textarea
                         placeholder='decription'
-                        name='descrp'
+                        name='description'
                         ref={register}
                     />
                     <input
                         placeholder='difficulty'
-                        name='diff'
+                        name='difficulty'
                         ref={register}
                     />
                     <Button name='add' />
