@@ -8,10 +8,25 @@
   letter-spacing: 3px;
   font-size: 16px;
   cursor: pointer;
+  box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.5);
+}
+
+.button:hover {
+  background: #3a1236;
 }
 
 .empty {
-  background: transparent;
+  background: #f8f8f8;
   color: #702268;
   border: 3px solid #702268;
+}
+
+.empty:hover {
+  background: #702268;
+  color: white;
+}
+
+.button:hover,
+.empty:hover {
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.2);
 }

@@ -10,7 +10,7 @@ import { NavLink } from 'react-router-dom';
  * Side drawer containg all navigation links for mobile view
  */
 
-const SideDrawer = ({ isShown }) => {
+const SideDrawer = ({ isShown, onClickClose }) => {
     return (
         <nav className={isShown ? `${styles.sideDrawer} ${styles.shown}` : styles.sideDrawer}>
 
@@ -20,8 +20,8 @@ const SideDrawer = ({ isShown }) => {
                     * Display nav links from MENU_LINKS array
                     */
                     MENU_LINKS.map(({ title, url }, idx) => (
-                        <li key={idx}>
-                            <NavLink to={url}>{title}</NavLink>
+                        <li key={idx} onClick={onClickClose}>
+                            <NavLink to={url} >{title}</NavLink>
                         </li>
                     ))
                 }

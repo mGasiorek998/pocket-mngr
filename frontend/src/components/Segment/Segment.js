@@ -10,7 +10,7 @@ import styles from './Segment.module.css';
 const Segment = ({ header, children }) => {
     return (
         <section>
-            <div>
+            <div className={styles.header}>
                 <h2>{header}</h2>
             </div>
             <div className={styles.segmentContent}>

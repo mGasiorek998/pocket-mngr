@@ -19,7 +19,7 @@ import store from '../redux/store';
 
 const App = () => {
 
-    const [sideDrawerToggle, setSideDrawerToggle] = useState(false);
+    const [sideDrawerToggle, setSideDrawerToggle] = useState();
 
     // handle toggling for the side drawer to show or to hide:
     const sideDrawerToggleHandler = () => {
@@ -27,7 +27,7 @@ const App = () => {
     }
 
     // Hide side drawer if backdrop was clicked
-    const backdropClickHandler = () => {
+    const closeSideDrawer = () => {
         setSideDrawerToggle(false);
     }
 
@@ -35,7 +35,7 @@ const App = () => {
     let backdrop;
 
     if (sideDrawerToggle) {
-        backdrop = <Backdrop click={backdropClickHandler} />;
+        backdrop = <Backdrop click={closeSideDrawer} />;
     }
 
     return (
@@ -43,7 +43,7 @@ const App = () => {
             <Router>
                 <div>
                     <Toolbar drawerToggleHandler={sideDrawerToggleHandler} />
-                    <SideDrawer isShown={sideDrawerToggle} />
+                    <SideDrawer isShown={sideDrawerToggle} onClickClose={closeSideDrawer} />
                     {backdrop}
                     <main style={{ marginTop: '10vh' }}>
                         <Switch>

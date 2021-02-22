@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useReducer } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './ManagerPage.module.css';
@@ -8,7 +8,7 @@ import Segment from '../Segment/Segment';
 import Task from '../Tasks/Task';
 import Button from '../Button/Button';
 import AddTaskModal from '../Modal/AddTaskModal';
-import { getAllTasks } from '../../redux/actions/tasks';
+import { changeTaskStatus, deleteTask, getAllTasks } from '../../redux/actions/tasks';
 
 
 /**
@@ -17,35 +17,56 @@ import { getAllTasks } from '../../redux/actions/tasks';
 
 
 const ManagerPage = () => {
-
+    // State for showin modal: 
     const [showModal, setShowModal] = useState(false);
 
-
+    // Tasks array from redux:
     const tasks = useSelector(state => state.tasks.tasks) // Get tasks from redux state
     const dispatch = useDispatch();
 
     useEffect(() => {
-        // Fetch all tasks
+        // Fetch all tasks when component is mounted:
         dispatch(getAllTasks());
     }, [])
 
-    //Display add task modal to UI
-    const handleAddTaskButtonClick = () => {
-        setShowModal(true);
+    /**
+     * Display modal after clicking the add Task button:
+     */
+    const handleAddTaskButtonClick = () => setShowModal(true);
+
+    /**
+     * Closes add task modal
+     */
+    const closeModal = () => setShowModal(false);
+
+    /**
+     * changes status for chosen task
+     * @param {number} taskId - id of task to change status
+     */
+    const changeTaskStatusHandler = taskId => {
+        dispatch(changeTaskStatus(taskId));
     }
 
+    /**
+     * removes task by id
+     * @param {number} taskId - id of task to remove
+     */
+    const deleteTaskHandler = taskId => {
+        dispatch(deleteTask(taskId));
+    }
+
+
+    // Dispaly backdrop if modal is shown:
     let backdrop;
-    let modal;
 
     if (showModal) {
-        backdrop = <Backdrop />
-        modal = <AddTaskModal />
+        backdrop = <Backdrop click={closeModal} />
     }
 
     return (
         <div className={styles.manager}>
             {backdrop}
-            {modal}
+            <AddTaskModal close={closeModal} isShown={showModal} />
 
             <div className={styles.managerSegment}>
                 <Segment header='NEW'>
@@ -59,6 +80,9 @@ const ManagerPage = () => {
                                         title={title}
                                         descp={description}
                                         diff={difficulty}
+                                        status={status}
+                                        changeStatus={changeTaskStatusHandler}
+                                        onDelete={deleteTaskHandler}
                                     />
                                 </div>
                                 : null
@@ -78,6 +102,9 @@ const ManagerPage = () => {
                                         title={title}
                                         descp={description}
                                         diff={difficulty}
+                                        status={status}
+                                        changeStatus={changeTaskStatusHandler}
+                                        onDelete={deleteTaskHandler}
                                     />
                                 </div>
                                 : null
@@ -96,7 +123,11 @@ const ManagerPage = () => {
                                         key={id}
                                         title={title}
                                         descp={description}
-                                        diff={difficulty} />
+                                        diff={difficulty}
+                                        status={status}
+                                        changeStatus={changeTaskStatusHandler}
+                                        onDelete={deleteTaskHandler}
+                                    />
                                 </div>
                                 : null
                         ))
