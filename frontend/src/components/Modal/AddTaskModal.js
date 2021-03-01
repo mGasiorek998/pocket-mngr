@@ -6,26 +6,13 @@ import styles from './AddTaskModal.module.css';
 
 import Modal from '../Modal/Modal';
 import Button from '../Button/Button';
-import { addTask } from '../../redux/actions/tasks';
+import { addTask, mapDifficultyNamesToIds } from '../../redux/actions/tasks';
 
 /**
  * Modal with form for adding a task
  */
 
-const DIFFICULTIES = {
-    'easy': 0,
-    'medium': 1,
-    'hard': 2,
-    'very hard': 3
-}
-/**
- * Changes difficulty value to coresponding id
- * @param {string} value - difficulty value
- * @example
- * mapDifficultyValuesToIds('medium') -> 1
- */
 
-const mapDifficultyValuesToIds = value => DIFFICULTIES[value.toLowerCase()];
 
 const AddTaskModal = ({ close, isShown }) => {
 
@@ -38,7 +25,7 @@ const AddTaskModal = ({ close, isShown }) => {
      * @param {Object} task - Task object created form user input
      */
     const submitTask = (task, e) => {
-        task['difficulty'] = mapDifficultyValuesToIds(task.difficulty);
+        task['difficulty'] = mapDifficultyNamesToIds(task.difficulty);
         dispatch(addTask(task)); // send task to the sever
 
 

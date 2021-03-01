@@ -8,7 +8,8 @@ import Segment from '../Segment/Segment';
 import Task from '../Tasks/Task';
 import Button from '../Button/Button';
 import AddTaskModal from '../Modal/AddTaskModal';
-import { changeTaskStatus, deleteTask, getAllTasks } from '../../redux/actions/tasks';
+import { changeTaskStatus, deleteTask, getAllTasks, getTaskById } from '../../redux/actions/tasks';
+import EditTaskModal from '../Modal/EditTaskModal';
 
 
 /**
@@ -18,7 +19,9 @@ import { changeTaskStatus, deleteTask, getAllTasks } from '../../redux/actions/t
 
 const ManagerPage = () => {
     // State for showin modal: 
-    const [showModal, setShowModal] = useState(false);
+    const [showAddTaskModal, setShowAddTaskModal] = useState(false);
+    const [showEditTaskModal, setShowEditTaskModal] = useState(false);
+    const [taskToEditId, setTaskToEditId] = useState(null);
 
     // Tasks array from redux:
     const tasks = useSelector(state => state.tasks.tasks) // Get tasks from redux state
@@ -32,41 +35,55 @@ const ManagerPage = () => {
     /**
      * Display modal after clicking the add Task button:
      */
-    const handleAddTaskButtonClick = () => setShowModal(true);
+    const handleAddTaskButtonClick = () => setShowAddTaskModal(true);
+
 
     /**
-     * Closes add task modal
+     * Closes any modal
      */
-    const closeModal = () => setShowModal(false);
+    const closeModal = () => {
+        setShowAddTaskModal(false);
+        setShowEditTaskModal(false);
+    }
 
     /**
      * changes status for chosen task
-     * @param {number} taskId - id of task to change status
+     * @param {number} id - id of task to change status
      */
-    const changeTaskStatusHandler = taskId => {
+    const changeTaskStatusHandler = id => {
         dispatch(changeTaskStatus(taskId));
     }
 
     /**
      * removes task by id
-     * @param {number} taskId - id of task to remove
+     * @param {number} id - id of task to remove
      */
-    const deleteTaskHandler = taskId => {
-        dispatch(deleteTask(taskId));
+    const deleteTaskHandler = id => {
+        dispatch(deleteTask(id));
+    }
+
+    /**
+     * handles showing edit task modal and gettin the task that should be updated from server by id
+     * @param {number} id - id of task to remove
+     */
+    const handleEditTaskButtonClick = id => {
+        setShowEditTaskModal(true);
+        dispatch(getTaskById(id));
     }
 
 
     // Dispaly backdrop if modal is shown:
     let backdrop;
 
-    if (showModal) {
+    if (showAddTaskModal || showEditTaskModal) {
         backdrop = <Backdrop click={closeModal} />
     }
 
     return (
         <div className={styles.manager}>
             {backdrop}
-            <AddTaskModal close={closeModal} isShown={showModal} />
+            <AddTaskModal close={closeModal} isShown={showAddTaskModal} />
+            <EditTaskModal close={closeModal} isShown={showEditTaskModal} id={taskToEditId} />
 
             <div className={styles.managerSegment}>
                 <Segment header='NEW'>
@@ -83,6 +100,7 @@ const ManagerPage = () => {
                                         status={status}
                                         changeStatus={changeTaskStatusHandler}
                                         onDelete={deleteTaskHandler}
+                                        onEdit={handleEditTaskButtonClick}
                                     />
                                 </div>
                                 : null

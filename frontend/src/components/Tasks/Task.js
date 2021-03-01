@@ -5,6 +5,7 @@ import styles from './Task.module.css';
 
 import Button from '../Button/Button';
 
+import { mapDifficultyIdsToNames } from '../../redux/actions/tasks';
 
 /**
  * Component for showing task
@@ -18,15 +19,10 @@ const DIFFICULTIES = {
     3: 'Very Hard'
 }
 
-/**
- * converts diff_id to its value 
- * @param {number} diff_id - difficulty id
- * @example
- * mapDifficultyIdToValue(1) -> Medium
- */
+
 const mapDifficultyIdToValue = (diff_id) => DIFFICULTIES[diff_id];
 
-const Task = ({ id, title, descp, diff, status, changeStatus, onDelete }) => {
+const Task = ({ id, title, descp, diff, status, changeStatus, onDelete, onEdit }) => {
 
 
     // Show only first 50 characters from the task's description
@@ -45,7 +41,11 @@ const Task = ({ id, title, descp, diff, status, changeStatus, onDelete }) => {
 
     switch (status) {
         case 0:
-            leftButton = <Button name='edit' isEmpty />
+            leftButton = <Button
+                name='edit'
+                isEmpty
+                onClick={() => onEdit(id)} />
+
             rightButton = <Button name='assign' onClick={() => changeStatus(id)} />
             break;
         case 1:
@@ -67,7 +67,7 @@ const Task = ({ id, title, descp, diff, status, changeStatus, onDelete }) => {
                     <p>{shortDesp}</p>
                 </div>
                 <div className={styles.taskDiff}>
-                    <p>Difficulty: <span>{mapDifficultyIdToValue(diff)}</span></p>
+                    <p>Difficulty: <span>{mapDifficultyIdsToNames(diff)}</span></p>
                 </div>
                 <div className={styles.taskButtons}>
                     {leftButton}

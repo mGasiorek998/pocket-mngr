@@ -25,6 +25,9 @@
   text-align: left;
 }
 
+.taskDescp p {
+  text-align: justify;
+}
 .taskDiff {
   position: relative;
   top: 30%;
