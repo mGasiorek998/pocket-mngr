@@ -11,18 +11,7 @@ import { mapDifficultyIdsToNames } from '../../redux/actions/tasks';
  * Component for showing task
  */
 
-// Enum that contains difficulties ID and their value
-const DIFFICULTIES = {
-    0: 'Easy',
-    1: 'Medium',
-    2: 'Hard',
-    3: 'Very Hard'
-}
-
-
-const mapDifficultyIdToValue = (diff_id) => DIFFICULTIES[diff_id];
-
-const Task = ({ id, title, descp, diff, status, changeStatus, onDelete, onEdit }) => {
+const Task = ({ id, title, descp, diff, status, changeStatus, onDelete, onEdit, onShowMore }) => {
 
 
     // Show only first 50 characters from the task's description
@@ -49,7 +38,7 @@ const Task = ({ id, title, descp, diff, status, changeStatus, onDelete, onEdit }
             rightButton = <Button name='assign' onClick={() => changeStatus(id)} />
             break;
         case 1:
-            leftButton = <Button name='more' isEmpty />
+            leftButton = <Button name='more' isEmpty onClick={() => onShowMore(id)} />
             rightButton = <Button name='finish' onClick={() => changeStatus(id)} />
             break;
         case 2:

@@ -10,6 +10,7 @@ import Button from '../Button/Button';
 import AddTaskModal from '../Modal/AddTaskModal';
 import { changeTaskStatus, deleteTask, getAllTasks, getTaskById } from '../../redux/actions/tasks';
 import EditTaskModal from '../Modal/EditTaskModal';
+import FullTask from '../Tasks/FullTask';
 
 
 /**
@@ -18,13 +19,15 @@ import EditTaskModal from '../Modal/EditTaskModal';
 
 
 const ManagerPage = () => {
-    // State for showin modal: 
+
+    // State for showing modal: 
     const [showAddTaskModal, setShowAddTaskModal] = useState(false);
     const [showEditTaskModal, setShowEditTaskModal] = useState(false);
-    const [taskToEditId, setTaskToEditId] = useState(null);
+    const [showFullTaskModal, setShowFullTaskModal] = useState(false);
+
 
     // Tasks array from redux:
-    const tasks = useSelector(state => state.tasks.tasks) // Get tasks from redux state
+    const tasks = useSelector(state => state.tasks.tasks)
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -44,6 +47,7 @@ const ManagerPage = () => {
     const closeModal = () => {
         setShowAddTaskModal(false);
         setShowEditTaskModal(false);
+        setShowFullTaskModal(false);
     }
 
     /**
@@ -51,7 +55,7 @@ const ManagerPage = () => {
      * @param {number} id - id of task to change status
      */
     const changeTaskStatusHandler = id => {
-        dispatch(changeTaskStatus(taskId));
+        dispatch(changeTaskStatus(id));
     }
 
     /**
@@ -71,19 +75,43 @@ const ManagerPage = () => {
         dispatch(getTaskById(id));
     }
 
+    /**
+     * Handles 'more' button click
+     * Displays a FullTask and gets task by Id from server
+     * @param {number} id - task to show id
+     */
+    const handleShowMoreTaskButtonClick = id => {
+        setShowFullTaskModal(true);
+        dispatch(getTaskById(id));
+    }
+
 
     // Dispaly backdrop if modal is shown:
     let backdrop;
 
-    if (showAddTaskModal || showEditTaskModal) {
+    if (showAddTaskModal || showEditTaskModal || showFullTaskModal) {
         backdrop = <Backdrop click={closeModal} />
     }
 
     return (
         <div className={styles.manager}>
             {backdrop}
-            <AddTaskModal close={closeModal} isShown={showAddTaskModal} />
-            <EditTaskModal close={closeModal} isShown={showEditTaskModal} id={taskToEditId} />
+
+            <AddTaskModal
+                close={closeModal}
+                isShown={showAddTaskModal}
+            />
+
+            <EditTaskModal
+                close={closeModal}
+                isShown={showEditTaskModal}
+            />
+
+            <FullTask
+                close={closeModal}
+                isShown={showFullTaskModal}
+                changeStatus={changeTaskStatusHandler}
+            />
 
             <div className={styles.managerSegment}>
                 <Segment header='NEW'>
@@ -123,6 +151,7 @@ const ManagerPage = () => {
                                         status={status}
                                         changeStatus={changeTaskStatusHandler}
                                         onDelete={deleteTaskHandler}
+                                        onShowMore={handleShowMoreTaskButtonClick}
                                     />
                                 </div>
                                 : null
