@@ -30,11 +30,6 @@ const ManagerPage = () => {
     const tasks = useSelector(state => state.tasks.tasks)
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        // Fetch all tasks when component is mounted:
-        dispatch(getAllTasks());
-    }, [])
-
     /**
      * Display modal after clicking the add Task button:
      */

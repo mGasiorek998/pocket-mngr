@@ -20,6 +20,20 @@
   border-radius: 50%;
   font-size: 1.5rem;
 }
+
 .managerSegmentItem {
   margin: 15px 0;
+}
+
+.radioButtons {
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+  padding: 25px 0;
+  font-size: 1.2rem;
+  color: #226870;
+}
+
+.radioButtons input[type="radio"] {
+  appearance: none;
 }
